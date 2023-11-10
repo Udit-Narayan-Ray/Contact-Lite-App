@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Home Page</title>
+</head>
+<body>
+	<section
+		class="banner d-flex justify-content-center align-items-center">
+		
+		<div class="container text-center">
+		
+			
+		<div class="mb">
+		 <h4>Jay Shree Radhe Krishna</h4>	
+		</div>
+	
+		 <div>
+		 <h3>Start Saving your contact in Contact Lite App</h3>
+		 </div>
+		 
+		 <div>
+		 <a th:href="@{/login}"> <button class="btn bg-warning mr-5">Get Started</button></a>
+		 
+		 </div>
+	</div> 
+		 
+	</section>
+</body>
+</html>

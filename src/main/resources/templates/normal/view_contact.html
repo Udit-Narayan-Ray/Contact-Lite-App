@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/normalbase::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+</head>
+<body>
+	<section>
+		
+	<div style="width:100%;" class="card ml-3 mr-3">
+	
+	<div  class="card-body ">
+	
+	
+	<h1 class="text-center ">Your Contact Lists</h1>
+	
+	<div class="search-container">
+	
+	<input onkeyup="search()" id="input_search" type="search" name="search" class="form-control" placeholder="Search Contact Name">
+	
+	<div class="search-result">
+		
+	</div>
+	</div>
+	
+	
+	<div th:if="${session.message}"
+			th:classappend="${session.message.type}" class="alert text-center"
+			role="alert">
+			<p th:text="${session.message.content}"
+				class="rounded text-dark"></p>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+	</div>
+	
+	<br>
+	
+	
+	<div class="table-responsive">
+	<table class="table table-hover caption-top text-center">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">PhoneNo</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr th:each="contact:${contactDTOs}">
+      <th scope="row" th:text="${'CLA'+contact.contactId}">1</th>
+      <td >
+      <img class="profile_picture" th:src="@{'/img/'+${contact.image}}">
+      <span th:text="${contact.name}"> name</span>
+      
+      </td>
+      <td >
+      
+      <a th:href="@{'/user/show_contact_details/'+${contact.contactId}}">
+      
+      <span th:text="${contact.email}" >email</span></a></td>
+      <td th:text="${contact.phoneNo}">phoneno</td>
+      <td>
+      
+      <!-- taken in form because method will be post but anchor tag send get request method -->
+      
+      <form action="" th:action="@{'/user/update_contact/'+${contact.contactId}}" method="post">
+      <button class="text-white btn bg-warning ">U</button>
+      </form>
+   
+      
+      <!-- |<javascript function>| is the  syntax to use javascript function inside the thymeleaf -->
+      
+      <button th:onclick="|deleteContact(${contact.contactId})|" class="text-white btn bg-danger mt-2">D</button>
+      
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+</div>
+	<nav aria-label="Page navigation example">
+  <ul class="pagination">
+  
+  	<!-- set condition for previous for activation if value != 0 and set link to go to previous  -->
+    <li th:if="${currentPage !=0}" class="page-item"><a th:href="@{'/user/view_contact/'+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
+    
+    
+    <!--  loop from 1 to total pages and at every iterated value set link for rendering and using classappend to active current page and below ' ' is used for static purpose  -->
+    <li th:classappend="${currentPage == i-1?'active':' '}" th:each="i : ${#numbers.sequence(1,totalPages)}" class="page-item">
+    <a th:if="${i-1 != -1}" th:href="@{${i-1}}" class="page-link" href="#" ><span th:text=${i}></span></a></li>
+    
+    
+    <!-- set condition for next for activation if value +1  < totalpage so that last page won't show the next and set link to go to next  -->
+    <li th:if="${currentPage+1 < totalPages}" class="page-item"><a th:href="@{'/user/view_contact/'+${currentPage+1}}" href="#" class="page-link" >Next</a></li>
+  
+  </ul>
+</nav>
+	
+	</div>
+	
+	</div>
+	
+	<script>
+	$(document).ready(()=>
+	{
+		$(".item").removeClass("active");
+		$("#contact-link").addClass("active");
+	});
+	
+	</script>
+		
+	</section>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/normalbase::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Contact</title>
+</head>
+<body>
+	<section>
+		<div th:if="${session.message}"
+			th:classappend="${session.message.type}" class="alert text-center"
+			role="alert">
+			<p th:text="${session.message.content}"
+				class="rounded text-dark"></p>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+
+		</div>
+		<div class="card rounded mr-3 ml-3">
+			<div class="card-body">
+
+				<h2 class="text-center">Update Contact</h2>
+
+
+				<div class="container-fluid mt-3">
+
+					<div class="row">
+
+						<div class="col-md-10 offset-md-1">
+
+							<form action="" th:action="@{/user/update_contact}"
+								th:object="${updateContact}" method="post"
+								enctype="multipart/form-data" class="upload-form mt-2">
+
+								<input type="hidden" name="cId" th:value="${updateContact.contactId}">
+								
+								<!-- name -->
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+
+											<i class="fa fa-user-alt"></i>
+
+										</div>
+									</div>
+									
+									<input th:value="${updateContact.name}" type="text" placeholder="Enter Your Name" name="name"
+										id="name_field" class="form-control" required>
+
+								</div>
+
+								<!-- Phone No -->
+
+								<div class="input-group mt-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+
+											<i class="fa fa-phone"></i>
+
+										</div>
+									</div>
+
+									<input th:value="${updateContact.phoneNo}" min="10" max="10" type="text" placeholder="Enter Contact Number"
+										name="phoneNo" id="phoneNo_field" class="form-control"
+										required>
+
+								</div>
+
+								<!-- Email -->
+
+								<div class="input-group mt-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">@</div>
+									</div>
+
+									<input th:value="${updateContact.email}" type="email" placeholder="Enter Your Email" name="email"
+										id="email_field" class="form-control" required>
+
+								</div>
+
+								<!-- Address -->
+
+								<div class="input-group mt-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+
+											<i class="fa fa-location"></i>
+
+										</div>
+									</div>
+
+									<input th:value="${updateContact.address}" type="text" placeholder="Enter Your Address"
+										name="address" id="address_field" class="form-control"
+										required>
+
+								</div>
+
+								<!-- work -->
+
+								<div class="input-group mt-2">
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+
+											<i class="fa fa-briefcase"></i>
+
+										</div>
+									</div>
+
+									<input th:value="${updateContact.work}" type="text" placeholder="Enter Profession" name="work"
+										id="work_field" class="form-control" required>
+
+								</div>
+
+								<!-- Description of experience -->
+
+								<div class="form-group mt-2">
+
+									<textarea id="mytextarea" placeholder="Write more about Yourself.."
+										class="form-control" name="description" rows="5"
+										></textarea>
+
+								</div>
+
+								<div class="custom-file">
+									<input accept="image/*" type="file" name="contactImage" id="image_field" class="upload-img"><br>
+									<caption>Image size should be < 1MB</caption>				
+								</div>
+
+
+								<div class="form-group mt-3 text-center">
+								<button onclick="history.back()" class="btn bg-primary">Back</button>
+									<input type="submit" name="update_contact"
+										class="btn btn-success btn-md" value="Update Contact">
+								</div>
+							</form>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+		 <script>
+		      tinymce.init({
+		        selector: '#mytextarea'
+		      });
+	     </script>
+<script>
+$(document).ready(()=>
+{
+	$(".item").removeClass("active");
+	$("#contact-link").addClass("active");
+});
+</script>
+
+<script>
+
+$(function(){
+	   let fileInput = $('.upload-img');
+	    let maxSize = '1048576';
+	    $('.upload-form').submit(function(e){
+	        if(fileInput.get(0).files.length){
+	            let fileSize = fileInput.get(0).files[0].size; // in bytes
+	            if(fileSize>maxSize){
+	            	
+	            	//swal is supported as sweet alert library added
+	                swal('File size > 1 MB','Size < 1 MB Accepted', 'error');
+	                return false;
+	            }else{
+	                //alert('file size is correct- '+fileSize+' bytes');
+	                return true
+	            }
+	        }/* else{
+	            alert('choose I file, please');
+	            return false;
+	        } */
+
+	    });
+	});
+
+</script>
+	</section>
+</body>
+</html>
