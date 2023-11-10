@@ -61,7 +61,7 @@ public class ContactServiceImpl implements ContactService {
 		
 		User user = this.userRepo.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User", 0,email));
 		
-		Pageable pageable=PageRequest.of(page, 1);
+		Pageable pageable=PageRequest.of(page, 5);
 		Page<Contact> contactPage = this.contactRepo.findContactByUser(user,pageable);
 
 		//		List<ContactDTO> contactDTOs = contacts.stream().map(c -> this.modelMapper.map(c,ContactDTO.class)).collect(Collectors.toList());
