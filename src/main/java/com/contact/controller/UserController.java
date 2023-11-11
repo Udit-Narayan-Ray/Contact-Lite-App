@@ -139,6 +139,7 @@ public class UserController {
 	@GetMapping("/show_contact_details/{cid}")
 	public String showContact(@PathVariable("cid") Integer contactId, Model model) {
 
+		model.addAttribute("title","Contact Information");
 		ContactDTO contact = this.contactService.findContact(contactId);
 
 		model.addAttribute("contact", contact);
@@ -159,7 +160,7 @@ public class UserController {
 		return "redirect:/user/view_contact/0";
 	}
 
-	@GetMapping("/update_contact/{cid}")
+	@PostMapping("/update_contact/{cid}")
 	public String updateContact(@PathVariable("cid") Integer contactId, Model model) {
 
 		model.addAttribute("title", "Update Contact");
