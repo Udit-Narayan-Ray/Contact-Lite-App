@@ -67,9 +67,10 @@
       <!-- taken in form because method will be post but anchor tag send get request method -->
       
       
-     	<form th:action="@{'/user/update_contact/'+${contact.contactId}}" method="post">
-     	<button type="submit" class="text-white btn bg-warning "><i class="fa fa-user-pen"></i></button>
-      </form>
+     	
+     	<a th:href="@{'/user/update_contact/'+${contact.contactId}}"><button class="text-white btn bg-warning ">
+     	<i class="fa fa-user-pen"></i></button></a>
+      
    
       
       <!-- |<javascript function>| is the  syntax to use javascript function inside the thymeleaf -->
