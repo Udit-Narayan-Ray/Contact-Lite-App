@@ -160,7 +160,7 @@ public class UserController {
 		return "redirect:/user/view_contact/0";
 	}
 
-	@PostMapping("/update_contact/{cid}")
+	@GetMapping("/update_contact/{cid}")
 	public String updateContact(@PathVariable("cid") Integer contactId, Model model) {
 
 		model.addAttribute("title", "Update Contact");
